@@ -5,8 +5,17 @@ const fs = require("fs")
 
 function send(file, loc) {
 	fs.readFile(file, "utf-8", (error, data) => {
-		if (error) { console.error(error) }
-		else { loc.send(data) }
+		if (error) {
+			console.error(error)
+
+			fs.readFile("content/errors/500.html", (error, data) => {
+				if (error) { loc.send("Error 500: Error displaying message in response to previous error") }
+				else { loc.send(data) }
+			})
+		}
+		else {
+			loc.send(data)
+		}
 	})
 }
 
@@ -22,7 +31,12 @@ app.get("/script.js", (req, res) => {
 	res.set("Content-Type", "application/javascript")
 	send("content/script.js", res)
 })
+app.get("/favicon.png", (req, res) => {
+	res.set("Content-Type", "image/png")
+	res.sendFile(`${__dirname}/content/favicon.png`)
+})
 
+//app.use(express.static("content/"))
 app.use((req, res) => {
 	fs.readFile("content/errors/404.html", "utf-8", (error, data) => {
 		if (error) { console.error(error) }
