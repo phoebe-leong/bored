@@ -9,7 +9,7 @@ function send(file, loc) {
 			console.error(error)
 
 			fs.readFile("content/errors/500.html", (error, data) => {
-				if (error) { loc.send("Error 500: Error displaying message in response to previous error") }
+				if (error) { loc.send("Error 500: Error while displaying message in response to previous error") }
 				else { loc.send(data) }
 			})
 		}
