@@ -5,6 +5,5 @@
   "author": "Phoebe Leong (ph3b3)",
   "dependencies": {
     "express": "^4.18.2",
-  },
-  "license": "MIT"
+  }
 }
